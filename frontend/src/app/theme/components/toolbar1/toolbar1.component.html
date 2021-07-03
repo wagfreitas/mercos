@@ -1,0 +1,38 @@
+<mat-toolbar id="top-toolbar" class="top-toolbar">
+  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <span fxHide="false" fxHide.gt-sm>
+        <button mat-button (click)="sidenavToggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </span>
+      <app-contato fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-sm></app-contato>
+    </div>
+    <!--fxShow.gt-md trata da responsividade da pagina, abrindo o hamburguinho quando a pagina atingir determinada largura-->
+    <app-social-icons fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-md></app-social-icons>
+    <div>
+      <app-usuario-menu></app-usuario-menu>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-toolbar id="main-toolbar" class="mat-elevation-z2">
+  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+    <a class="logo" routerLink="/">
+      <app-logo></app-logo>
+    </a>
+    <!--Cria o menu horizontal-->
+    <div fxShow="false" fxShow.gt-sm class="horizontal-menu">
+      <app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>
+    </div>
+
+    <div *ngIf="isLoggedIn"   fxLayout="row" fxLayoutAlign="start center">
+      <a (click) ="exportar()" mat-raised-button color="primary" fxShow="false" fxShow.gt-xs
+        class="uppercase">Exportar Produtos</a>
+    </div>
+    <div *ngIf="!isLoggedIn"   fxLayout="row" fxLayoutAlign="start center">
+      <a mat-raised-button color="primary" fxShow="false" fxShow.gt-xs
+        class="uppercase">Logar</a>
+    </div>
+  </div>
+</mat-toolbar>

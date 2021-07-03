@@ -1,0 +1,44 @@
+<mat-sidenav-container>
+  <!--Mat sidenav bar sera uma opçao de uso de menu
+        caso o usuário queira poderá optar por usar dessa forma
+        ou entao o horizontal
+        Mat-elevation-z6 é usado para fazer sombra na toolbar-->
+  <mat-sidenav [opened]=false mode="over" #sidenav class="sidenav mat-elevation-z6">
+    <button mat-icon-button color="warn" class="close" (click)="sidenav.close()">
+      <mat-icon color="warm"> close</mat-icon>
+    </button>
+    <div class="divider"></div>
+
+    <!--O PerfectScrollbar garante que o scroll somente aparecera quando necessário, ou seja a pagina excedeu seu tamanho
+    chama o componente menu-vertical passando para ele o valor 1 do menu que é a HOME -->
+    <div perfectScrollbar class="vertical-menu-wrapper">
+      <app-vertical-menu [menuParentId]="0"></app-vertical-menu>
+    </div>
+
+    <div class="divider"></div>
+
+    <!--Mostra os icones das redes sociais -->
+    <app-social-icons [iconSize]="'xl'" [iconColor]="'primary'" fxLayout="row" fxLayoutAlign="center center"></app-social-icons>
+  </mat-sidenav>
+<!--fim do menu lateral-->
+
+<!--A classe settings possui as configurações de estilo da página-->
+  <mat-sidenav-content class="page-wrapper" fxLayout="column" fxLayoutAlign="start stretch">
+    <header  [ngClass]="'toolbar-'+settings.toolbar" [class.has-bg-image]="settings.headerBgImage" [class.has-bg-video]="settings.headerBgVideo" [class.main-toolbar-fixed]="settings.mainToolbarFixed">
+      <app-toolbar1
+        (onMenuIconClick)= "sidenav.toggle()"
+        (onExportar) = "exportaProd($event)"
+        ></app-toolbar1>
+    </header>
+
+    <main [class.content-offset-to-top]="settings.contentOffsetToTop">
+      <router-outlet></router-outlet>
+    </main>
+
+    <div class="sticky-footer-helper" fxFlex="grow"></div>
+
+    <div *ngIf="showBackToTop" fxLayout="row" fxLayoutAlign="center center" class="back-to-top" (click)="scrollToTop()">
+      <mat-icon>arrow_upward</mat-icon>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

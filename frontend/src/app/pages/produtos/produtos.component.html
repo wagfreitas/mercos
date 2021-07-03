@@ -1,0 +1,93 @@
+<div class="px-3">
+  <div class="theme-container">
+    <mat-card class="main-content-header">
+      <app-buscas-gerais
+        [removedSearchField]="removedSearchField"
+        (onSearchClick)="searchClicked($event)"
+      >
+      </app-buscas-gerais>
+    </mat-card>
+  </div>
+
+  <div class="theme-container">
+    <mat-form-field appearance="outline" class="w-100">
+      <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Filter properties"
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="dataSource" matSort class="w-100">
+        <!-- ID Column -->
+        <ng-container matColumnDef="parentid">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Parent id</th>
+          <td mat-cell *matCellDef="let property">
+            {{ property.parent_id[0] }}
+          </td>
+        </ng-container>
+
+        <!-- Image Column -->
+        <ng-container matColumnDef="productid">
+          <th mat-header-cell *matHeaderCellDef>Product Id</th>
+          <td mat-cell *matCellDef="let property">
+            {{ property.product_id }}
+          </td>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="qty">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantidade</th>
+          <td mat-cell *matCellDef="let property">
+            <a
+              [routerLink]="['/properties', property.id]"
+              class="property-name"
+              >{{ property.qty }}</a
+            >
+          </td>
+        </ng-container>
+
+        <!-- Published Column -->
+        <ng-container matColumnDef="sku">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>
+          <td mat-cell *matCellDef="let property">{{property.sku}}</td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <!--ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let property">
+            <a
+              [routerLink]="['/account/my-properties', property.id]"
+              mat-icon-button
+              color="primary"
+              matTooltip="Edit property"
+            >
+              <mat-icon>edit</mat-icon>
+            </a>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="remove(property)"
+              matTooltip="Remove"
+              class="remove"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container-->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let property; columns: displayedColumns"></tr>
+      </table>
+      <p *ngIf="dataSource?.data.length === 0" class="py-5 mb-0 text-center">
+        No data available
+      </p>
+    </div>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

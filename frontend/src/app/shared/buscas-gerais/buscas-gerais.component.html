@@ -1,0 +1,31 @@
+<form [formGroup]="form" class="search-wrapper" [ngClass]="'variant-'+variant">
+  <div [fxLayout]="(vertical) ? 'column' : 'row wrap'">
+
+      <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="50" class="p-2">
+          <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
+              <mat-label>Número da Venda</mat-label>
+              <mat-select placeholder="Selecione o Nr da Venda" formControlName="vendaNum" (selectionChange) = "onChange()">
+                  <mat-option *ngFor="let vendaNum of vendaNumeros" [value]="vendaNum" >
+                      {{vendaNum.order_id}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+
+      <div *ngIf="status"  fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="50" class="p-2">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Status</mat-label>
+          <input  disabled matInput placeholder="" [value] =  "status" >
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="data"  fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="50" class="p-2">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Data</mat-label>
+          <input  disabled matInput placeholder="" [value] =  "data" >
+        </mat-form-field>
+      </div>
+  </div>
+</form> 
+
+
